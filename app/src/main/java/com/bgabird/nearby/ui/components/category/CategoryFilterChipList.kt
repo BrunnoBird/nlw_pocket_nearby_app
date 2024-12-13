@@ -14,13 +14,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bgabird.nearby.data.model.NearbyCategory
+import com.bgabird.nearby.data.model.Category
+import com.bgabird.nearby.data.model.mock.mockCategoriesList
 
 @Composable
-fun NearbyCategoryFilterChipList(
+fun CategoryFilterChipList(
     modifier: Modifier = Modifier,
-    categories: List<NearbyCategory>,
-    onSelectedCategoryChanged: (NearbyCategory) -> Unit
+    categories: List<Category>,
+    onSelectedCategoryChanged: (Category) -> Unit
 ) {
     var selectedCategoryId by remember {
         mutableStateOf(categories.firstOrNull()?.id.orEmpty())
@@ -39,7 +40,7 @@ fun NearbyCategoryFilterChipList(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(items = categories, key = { it.id }) { category ->
-            NearbyCategoryFilterChip(
+            CategoryFilterChip(
                 category = category,
                 isSelected = category.id == selectedCategoryId,
                 onClick = { isSelected ->
@@ -51,28 +52,10 @@ fun NearbyCategoryFilterChipList(
 
 @Preview
 @Composable
-private fun NearbyCategoryFilterChipListPreview() {
-    val categoriesList = listOf(
-        NearbyCategory(
-            id = "1",
-            name = "Alimentação"
-        ),
-        NearbyCategory(
-            id = "2",
-            name = "Cinema"
-        ),
-        NearbyCategory(
-            id = "3",
-            name = "Farmácia"
-        ),
-        NearbyCategory(
-            id = "4",
-            name = "Supermercado"
-        )
-    )
-    NearbyCategoryFilterChipList(
+private fun CategoryFilterChipListPreview() {
+    CategoryFilterChipList(
         modifier = Modifier.fillMaxWidth(),
-        categories = categoriesList,
+        categories = mockCategoriesList,
         onSelectedCategoryChanged = {}
     )
 }
